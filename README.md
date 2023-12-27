@@ -1,13 +1,7 @@
-# A Deep Reinforcement Learning Framework for the Financial Portfolio Management Problem
+# A Deep Reinforcement Learning Framework for Portfolio Management: Application for Vietnamese stocks
 
-[![DOI](https://zenodo.org/badge/140182058.svg)](https://zenodo.org/badge/latestdoi/140182058)
+This project draws inspiration from the deep reinforcement learning framework for portfolio management proposed by [Jiang et al. in 2017](https://arxiv.org/abs/1706.10059). We conduct further investigation into the original architecture introduced by Jiang et al. in 2017, tailoring it for implementation in the Vietnamese stock market. The portfolio encompasses 14 distinct stocks, detailed in Table 1. The objective is to formulate a reward function that maximizes the risk-adjusted return of the portfolio relative to the benchmark (VNI - VN Index)
 
-
-
-This repository presents our work during a project realized in the context of the [IEOR 8100 Reinforcement Leanrning](https://github.com/ieor8100/rl) at Columbia University.
-
-This Deep Policy Network Reinforcement Learning project is our implementation and further research of the original paper [A Deep Reinforcement Learning Framework for the
-Financial Portfolio Management Problem (Jiang et al. 2017)](https://arxiv.org/abs/1706.10059). 
 
 <b>Objective:</b> The problem is the one of automated portfolio management: given a set of stocks, how to best allocate money through time to
 maximize returns at the end of a certain number of timesteps. In this way, we aim to build an automated agent which best allocates the weights of its investment between different stocks.
