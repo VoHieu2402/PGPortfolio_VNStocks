@@ -8,16 +8,16 @@ This project draws inspiration from the deep reinforcement learning framework fo
 | 2 | BID | Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)
 | 3 | BVH | BaoViet Holding
 | 4 | CTG | Vietnam Joint Stock Commercial Bank for Industry and Trade (VietinBank)
-| 5 | FPT |
-| 6 | HPG |
-| 7 | MBB |
-| 8 | MSN |
-| 9 | MWG |
-| 10 | SSI |
-| 11 | STB |
-| 12 | VCB |
-| 13 | VIC |
-| 14 | VNM |
+| 5 | FPT | FPT Corporation
+| 6 | HPG | Hoa Phat Group
+| 7 | MBB | Military Commercial Joint Stock Bank
+| 8 | MSN | Masan Group
+| 9 | MWG | Mobile World Investment Corporation (The Gioi Di Dong)
+| 10 | SSI | SSI Securities Corporation
+| 11 | STB | Sai Gon Thuong Tin Joint Stock Commercial Bank (Sacombank)
+| 12 | VCB | Joint Stock Commercial Bank for Foreign Trade of Vietnam (Vietcombank)
+| 13 | VIC | Vingroup Joint Stock Company
+| 14 | VNM | Vinamilk
 
 <b>Objective:</b> The problem is the one of automated portfolio management: given a set of stocks, how to best allocate money through time to
 maximize returns at the end of a certain number of timesteps. In this way, we aim to build an automated agent which best allocates the weights of its investment between different stocks.
