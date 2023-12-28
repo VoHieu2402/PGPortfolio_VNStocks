@@ -29,19 +29,33 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
 <table>
     <thead>
         <tr>
-            <th>Layer 1</th>
-            <th>Layer 2</th>
-            <th>Layer 3</th>
+            <th>Folder</th>
+            <th>File</th>
+            <th>Exported to</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td rowspan=4>L1 Name</td>
-            <td rowspan=2>L2 Name A</td>
-            <td>L3 Name A</td>
+            <td rowspan=4>data/torch_tensor_vn_stocks</td>
+            <td>state_tensor_pf_vnstocks_train.pt</td>
+            <td>train.py</td>
+            <td>A PyTorch tensor that holds information about the state of 14 different stocks for training. It undergoes processing as described in the original paper</td>
         </tr>
         <tr>
-            <td>L3 Name B</td>
+            <td>state_tensor_pf_vnstocks_test.pt</td>
+            <td>test.py</td>
+            <td>A PyTorch tensor that holds information about the state of 14 different stocks for testing. It undergoes processing as described in the original paper</td>
+        </tr>
+        <tr>
+            <td>state_tensor_pf_VNI_train.pt</td>
+            <td>train.py</td>
+            <td>A PyTorch tensor that holds information about the state of the benchmark (VN Index) for training. It undergoes processing as described in the original paper</td>
+        </tr>
+        <tr>
+            <td>state_tensor_pf_VNI_test.pt</td>
+            <td>test.py</td>
+            <td>A PyTorch tensor that holds information about the state of the benchmark (VN Index) for testing. It undergoes processing as described in the original paper</td>
         </tr>
         <tr>
             <td rowspan=2>L2 Name B</td>
@@ -53,22 +67,6 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
     </tbody>
 </table>
 
-| Folder | File | Exported to | Description
-| --- | --- | --- | --- |
-| data | ACB | Asia Commercial Joint Stock Bank
-| 2 | BID | Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV) ||
-| 3 | BVH | BaoViet Holding
-| 4 | CTG | Vietnam Joint Stock Commercial Bank for Industry and Trade (VietinBank)
-| 5 | FPT | FPT Corporation
-| 6 | HPG | Hoa Phat Group
-| 7 | MBB | Military Commercial Joint Stock Bank
-| 8 | MSN | Masan Group
-| 9 | MWG | Mobile World Investment Corporation (The Gioi Di Dong)
-| 10 | SSI | SSI Securities Corporation
-| 11 | STB | Sai Gon Thuong Tin Joint Stock Commercial Bank (Sacombank)
-| 12 | VCB | Joint Stock Commercial Bank for Foreign Trade of Vietnam (Vietcombank)
-| 13 | VIC | Vingroup Joint Stock Company
-| 14 | VNM | Vinamilk
 
 ![tensor](./print/inputTensor.png)
 
