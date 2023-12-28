@@ -48,19 +48,19 @@ $ python test.py
     - <b>agent.py</b>: An agent that interacts with an environment with the goal of learning optimal actions to maximize cumulative rewards over time. It is responsible for making decisions, taking actions, and learning from the consequences of those actions.
 
 
-## Deep Policy Network Design 
+## New contributions to the original architecture
 
-### RL Framework
+### Reward function
 
-The portfolio manager agent is set-up in the way:
-- The <b>state</b> (at time t) is the input matrix and the previous portfolio weights (at time t-1). 
-- The <b>action</b> is the vector of investment weight (at time t).
-- The <b>reward function</b> is defined such as it is the agent's return minus a baseline’s return (baseline is an equi weighted agent - invest in all the possible stocks in the same way) minus a term proportional to the maximum of the weight (this term is set-up to make the agent avoids to invest fully in one stock)
+While the original framework calculates the reward as the explicit average of periodic logarithmic returns, my project defines the reward function as the disparity between the agent's risk-adjusted return and that of the benchmark. This addition of a risk element aims to enhance the stability of the portfolio management strategy, preventing excessive allocation to specific assets.
 
-![RLFramework](./print/RLFramework.png)
-![rewardFunction](./print/rewardFunction.png)
+Moreover, employing risk-adjusted returns allows us to track the value of the portfolio over time. Integrating the portfolio value into the model enhances the agent's awareness of its position, facilitating more informed decision-making.
 
-### Deep Policy Function Architecture
+### Learning rate schedules
+
+Instead of utilizing a constant learning rate, I utilize learning rate schedules to reduce the learning rate after each episode. This method is believed to improve the optimization process, particularly in the context of risk-adjusted returns, where daily returns are often very small.
+
+### Performance and some discussion
 
 The policy function is designed through a deep neural network which takes as input the input tensor (shape m x 50 x (3 or 4)) composed of :
 - the m traded stocks 
