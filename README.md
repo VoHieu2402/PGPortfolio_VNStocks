@@ -26,46 +26,18 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
 
 ### File Structure
 
-<table>
-    <thead>
-        <tr>
-            <th>Folder</th>
-            <th>File</th>
-            <th>Exported to</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td rowspan=4>data/torch_tensor_vn_stocks</td>
-            <td>state_tensor_pf_vnstocks_train.pt</td>
-            <td>train.py</td>
-            <td>A PyTorch tensor that holds information about the state of 14 different stocks for training. It undergoes processing as described in the original paper</td>
-        </tr>
-        <tr>
-            <td>state_tensor_pf_vnstocks_test.pt</td>
-            <td>test.py</td>
-            <td>A PyTorch tensor that holds information about the state of 14 different stocks for testing. It undergoes processing as described in the original paper</td>
-        </tr>
-        <tr>
-            <td>state_tensor_pf_VNI_train.pt</td>
-            <td>train.py</td>
-            <td>A PyTorch tensor that holds information about the state of the benchmark (VN Index) for training. It undergoes processing as described in the original paper</td>
-        </tr>
-        <tr>
-            <td>state_tensor_pf_VNI_test.pt</td>
-            <td>test.py</td>
-            <td>A PyTorch tensor that holds information about the state of the benchmark (VN Index) for testing. It undergoes processing as described in the original paper</td>
-        </tr>
-        <tr>
-            <td rowspan=2>L2 Name B</td>
-            <td>L3 Name C</td>
-        </tr>
-        <tr>
-            <td>L3 Name D</td>
-        </tr>
-    </tbody>
-</table>
+- <b>data/torch_tensor_vn_stocks</b>:
+    - <b>state_tensor_pf_vnstocks_train.pt</b>: A PyTorch tensor that holds information about the state of 14 different stocks for training. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, num_stocks, num_lags)</i>
+    - <b>state_tensor_pf_vnstocks_test.pt</b>: A PyTorch tensor that holds information about the state of 14 different stocks for testing. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, num_stocks, num_lags)</i>
+    - <b>state_tensor_pf_VNI_train.pt</b>: A PyTorch tensor that holds information about the state of the benchmark (VN Index) for training. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, 1, num_lags)</i>
+    - <b>state_tensor_pf_VNI_test.pt</b>: A PyTorch tensor that holds information about the state of the benchmark for testing. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, 1, num_lags)</i>
+- <b>deep_learning_model</b>:
+    - <b>actor_network.py</b>: The deep neural network that determines the allocation directly based on the state tensor. The architecture of the network is described in the original paper.
+- <b>reinforcement_learning_algorithms</b>:
+    - <b>replay_buffer.py</b>: The database used to stores experiences in the form of tuples (state_portfolio, action, reward, next_state_portfolio, state_benchmark, next_state_benchmark, prev_action, prev_pf, prev_bm, pre_each_asset), representing the agent's interactions with the environment at different time steps.
+    - <b>policy.py</b> The policy that select actions using actor network
+    - <b>agent.py</b>
+
 
 
 ![tensor](./print/inputTensor.png)
