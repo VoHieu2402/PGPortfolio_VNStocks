@@ -1,6 +1,6 @@
-# A Deep Reinforcement Learning Framework for Portfolio Management: Application for Vietnamese stocks
+# A DRL Framework for Portfolio Management: Application for Vietnamese stocks
 
-This project draws inspiration from the deep reinforcement learning framework for portfolio management proposed by [Jiang et al. in 2017](https://arxiv.org/abs/1706.10059). We conduct further investigation into the original architecture introduced by Jiang et al. in 2017, tailoring it for implementation in the Vietnamese stock market. The portfolio encompasses 14 distinct stocks, detailed in below table. The objective is to formulate a reward function that maximizes the risk-adjusted return of the portfolio relative to the benchmark (VNI - VN Index)
+This project draws inspiration from the deep reinforcement learning framework for portfolio management proposed by [Jiang et al. in 2017](https://arxiv.org/abs/1706.10059). I conduct further investigation into the original architecture introduced by Jiang et al, tailoring it for implementation in the Vietnamese stock market. The portfolio encompasses 14 distinct stocks, detailed in below table. The objective is to formulate a reward function that maximizes the risk-adjusted return of the portfolio relative to the benchmark (VNI - VN Index)
 
 | Num | Ticker | Description
 | --- | --- | --- |
@@ -19,32 +19,10 @@ This project draws inspiration from the deep reinforcement learning framework fo
 | 13 | VIC | Vingroup Joint Stock Company
 | 14 | VNM | Vinamilk
 
-<b>Objective:</b> The problem is the one of automated portfolio management: given a set of stocks, how to best allocate money through time to
-maximize returns at the end of a certain number of timesteps. In this way, we aim to build an automated agent which best allocates the weights of its investment between different stocks.
 
-<b>Data:</b> Jiang et al. use 13 crypto-currencies from the Poloniex exchange. They take into account the open, high, low, close (OHLC) prices,
-minute per minute. They allow a portfolio rebalance every 30 minutes. They reprocess the data and create a tensor based on the last
-50 time-steps.  
+## Usage Guidline
 
-We extend the experiment to the stock market, using the framework on daily data and intraday data with a daily rebalance. 
-
-The project is decomposed in 3 parts:
-- Data Preprocessing 
-- Environment Set-up
-- Deep policy network design 
-- Training and Testing of the agent
-
-The files are: 
-- data_pipe.ipynb: pre-processing of S&P500 data
-- data_pipe_poloniex.ipynb: pre-processing of Poloniex data
-- environment.py: trading environment render
-- DPM.ipynb: main notebook 
-- individual_stocks_5yr: folder with the raw [S&P500 data](https://www.kaggle.com/camnugent/sandp500)
-- np_data: folder with the processed input data/used by the DPM notebook 
-- poloniex_data: poloniex crypto-currencies data
-- Poster.pdf: poster shown during final evaluation session
-
-## Data Preprocessing
+To begin, ensure the installation of the necessary packages outlined in the <i>requirements.txt</i> file. The focal point of my repository revolves around the training and testing processes. The training process is executed through the <i>train.py</i> file. If required, you have the flexibility to modify hyperparameters for the agent and training process; however, it is imperative to have a clear understanding of each parameter. No validation function is implemented to assess the suitability of hyperparameters, so errors may arise if the provided parameters are inappropriate. Subsequent to the training phase, the trained agent is saved as a pickle file. The <i>test.py</i> file is designed to load this pickle file for testing purposes, accompanied by visualizations of the performance.
 
 For each stock, the input is a raw time series of the prices (High, Low, Open, Close). 
 The output is a matrix of 4 rows (3 in the case of the cryptocurrencies - Open(t) = Close(t-1) - the market never closes) and n (number of available data points) columns. <br>
