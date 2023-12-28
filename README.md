@@ -35,7 +35,7 @@ $ python test.py
 
 ### File Structure
 
-- <b>data/torch_tensor_vn_stocks</b>: The training dataset spans from January 1, 2015, to June 1, 2023, while the testing dataset covers the period from June 1, 2023, to December 19, 2023. Historical Open-High-Low (OHL) data serves as the representation of the market state in our approach. The chosen lag is 3O previous time steps (equivalent to one month)
+- <b>data/torch_tensor_vn_stocks</b>: The training dataset spans from January 1, 2015, to June 1, 2023, while the testing dataset covers the period from June 1, 2023, to December 19, 2023. Historical Close-High-Low (CHL) data serves as the representation of the market state in our approach. The chosen lag is 30 previous time steps (equivalent to one month)
     - <b>state_tensor_pf_vnstocks_train.pt</b>: A PyTorch tensor that holds information about the state of 14 different stocks for training. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, num_stocks, num_lags)</i>
     - <b>state_tensor_pf_vnstocks_test.pt</b>: A PyTorch tensor that holds information about the state of 14 different stocks for testing. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, num_stocks, num_lags)</i>
     - <b>state_tensor_pf_VNI_train.pt</b>: A PyTorch tensor that holds information about the state of the benchmark (VN Index) for training. It undergoes processing as described in the original paper. It has shape: <i>(batch_size, num_features, 1, num_lags)</i>
@@ -46,6 +46,8 @@ $ python test.py
     - <b>replay_buffer.py</b>: The database used to stores experiences in the form of tuples <i>(state_portfolio, action, reward, next_state_portfolio, state_benchmark, next_state_benchmark, prev_action, prev_pf, prev_bm, pre_each_asset)</i>, representing the agent's interactions with the environment at different time steps.
     - <b>policy.py</b>: The policy that select actions using actor network.
     - <b>agent.py</b>: An agent that interacts with an environment with the goal of learning optimal actions to maximize cumulative rewards over time. It is responsible for making decisions, taking actions, and learning from the consequences of those actions.
+- <b>train.py</b> During the training process, the agent undergoes 1000 episodes, each involving the management of a portfolio comprising 14 distinct stocks and cash to maximize the final risk-adjusted return. In each episode, there are 60 time steps, equivalent to a period of 2 months.
+- <b>test.py</b> The tested agent evaluates the portfolio management strategy over a period comprising 112 time steps. Additionally, visualizations are generated in this file.
 
 
 ## New contributions to the original architecture
@@ -60,7 +62,7 @@ Moreover, employing risk-adjusted returns allows us to track the value of the po
 
 Instead of utilizing a constant learning rate, I utilize learning rate schedules to reduce the learning rate after each episode. This method is believed to improve the optimization process, particularly in the context of risk-adjusted returns, where daily returns are often very small.
 
-### Performance and some discussion
+## Performance and some discussion
 
 The policy function is designed through a deep neural network which takes as input the input tensor (shape m x 50 x (3 or 4)) composed of :
 - the m traded stocks 
