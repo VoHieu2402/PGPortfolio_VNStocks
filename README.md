@@ -26,12 +26,12 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
 
 ### Quick Start
 Start with following commands:
-'''
+```
 $ git clone https://github.com/VoHieu2402/PGPortfolio_VNStocks
 $ cd PGPortfolio_VNStocks
 $ python train.py
 $ python test.py
-'''
+```
 
 ### File Structure
 
