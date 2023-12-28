@@ -20,7 +20,7 @@ This project draws inspiration from the deep reinforcement learning framework fo
 | 14 | VNM | Vinamilk
 
 
-## Usage Guidline
+## Usage Guideline
 
 To begin, ensure the installation of the necessary packages outlined in the <i>requirements.txt</i> file. The focal point of my repository revolves around the training and testing processes. The training process is executed through the <i>train.py</i> file. If required, you have the flexibility to modify hyperparameters for the agent and training process; however, it is imperative to have a clear understanding of each parameter. No validation function is implemented to assess the suitability of hyperparameters, so errors may arise if the provided parameters are inappropriate. Subsequent to the training phase, the trained agent is saved as a pickle file. The <i>test.py</i> file is designed to load this pickle file for testing purposes, accompanied by visualizations of the performance.
 
@@ -34,9 +34,9 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
 - <b>deep_learning_model</b>:
     - <b>actor_network.py</b>: The deep neural network that determines the allocation directly based on the state tensor. The architecture of the network is described in the original paper.
 - <b>reinforcement_learning_algorithms</b>:
-    - <b>replay_buffer.py</b>: The database used to stores experiences in the form of tuples (state_portfolio, action, reward, next_state_portfolio, state_benchmark, next_state_benchmark, prev_action, prev_pf, prev_bm, pre_each_asset), representing the agent's interactions with the environment at different time steps.
-    - <b>policy.py</b> The policy that select actions using actor network
-    - <b>agent.py</b>
+    - <b>replay_buffer.py</b>: The database used to stores experiences in the form of tuples <i>(state_portfolio, action, reward, next_state_portfolio, state_benchmark, next_state_benchmark, prev_action, prev_pf, prev_bm, pre_each_asset)</i>, representing the agent's interactions with the environment at different time steps.
+    - <b>policy.py</b>: The policy that select actions using actor network.
+    - <b>agent.py</b>: An agent that interacts with an environment with the goal of learning optimal actions to maximize cumulative rewards over time. It is responsible for making decisions, taking actions, and learning from the consequences of those actions.
 
 
 

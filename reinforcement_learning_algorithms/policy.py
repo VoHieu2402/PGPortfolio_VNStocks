@@ -23,3 +23,4 @@ class Policy(nn.Module):
     def select_action(self, x1, x2):
         self.stock_weights, self.portfolio_weights = self.actor_network(x1, x2)
         return self.stock_weights, self.portfolio_weights
+    
