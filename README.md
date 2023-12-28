@@ -24,13 +24,51 @@ This project draws inspiration from the deep reinforcement learning framework fo
 
 To begin, ensure the installation of the necessary packages outlined in the <i>requirements.txt</i> file. The focal point of my repository revolves around the training and testing processes. The training process is executed through the <i>train.py</i> file. If required, you have the flexibility to modify hyperparameters for the agent and training process; however, it is imperative to have a clear understanding of each parameter. No validation function is implemented to assess the suitability of hyperparameters, so errors may arise if the provided parameters are inappropriate. Subsequent to the training phase, the trained agent is saved as a pickle file. The <i>test.py</i> file is designed to load this pickle file for testing purposes, accompanied by visualizations of the performance.
 
-For each stock, the input is a raw time series of the prices (High, Low, Open, Close). 
-The output is a matrix of 4 rows (3 in the case of the cryptocurrencies - Open(t) = Close(t-1) - the market never closes) and n (number of available data points) columns. <br>
-The columns correspond to:
-- Close(t-1)/Open(t-1)
-- High(t-1)/Open(t-1)
-- Low(t-1)/Open(t-1)
-- Open(t)/Open(t-1)
+### File Structure
+
+<table>
+    <thead>
+        <tr>
+            <th>Layer 1</th>
+            <th>Layer 2</th>
+            <th>Layer 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan=4>L1 Name</td>
+            <td rowspan=2>L2 Name A</td>
+            <td>L3 Name A</td>
+        </tr>
+        <tr>
+            <td>L3 Name B</td>
+        </tr>
+        <tr>
+            <td rowspan=2>L2 Name B</td>
+            <td>L3 Name C</td>
+        </tr>
+        <tr>
+            <td>L3 Name D</td>
+        </tr>
+    </tbody>
+</table>
+
+| Folder | File | Exported to | Description
+| --- | --- | --- | --- |
+| data | ACB | Asia Commercial Joint Stock Bank
+| 2 | BID | Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)
+| 3 | BVH | BaoViet Holding
+| 4 | CTG | Vietnam Joint Stock Commercial Bank for Industry and Trade (VietinBank)
+| 5 | FPT | FPT Corporation
+| 6 | HPG | Hoa Phat Group
+| 7 | MBB | Military Commercial Joint Stock Bank
+| 8 | MSN | Masan Group
+| 9 | MWG | Mobile World Investment Corporation (The Gioi Di Dong)
+| 10 | SSI | SSI Securities Corporation
+| 11 | STB | Sai Gon Thuong Tin Joint Stock Commercial Bank (Sacombank)
+| 12 | VCB | Joint Stock Commercial Bank for Foreign Trade of Vietnam (Vietcombank)
+| 13 | VIC | Vingroup Joint Stock Company
+| 14 | VNM | Vinamilk
 
 ![tensor](./print/inputTensor.png)
 
