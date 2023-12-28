@@ -56,7 +56,7 @@ To begin, ensure the installation of the necessary packages outlined in the <i>r
 | Folder | File | Exported to | Description
 | --- | --- | --- | --- |
 | data | ACB | Asia Commercial Joint Stock Bank
-| 2 | BID | Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV)
+| 2 | BID | Joint Stock Commercial Bank for Investment and Development of Vietnam (BIDV) ||
 | 3 | BVH | BaoViet Holding
 | 4 | CTG | Vietnam Joint Stock Commercial Bank for Industry and Trade (VietinBank)
 | 5 | FPT | FPT Corporation
