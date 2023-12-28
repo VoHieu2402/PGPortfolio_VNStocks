@@ -99,9 +99,7 @@ In order to make the policy more dynamic, we think of using a discrete action sp
 
 ## Author
 
-* **Selim Amrouni** [selimamrouni](https://github.com/selimamrouni)
-* **Aymeric Moulin** [AymericCAMoulin](https://github.com/AymericCAMoulin)
-* **Philippe Mizrahi** [pcamizrahi](https://github.com/pcamizrahi)
+* **Vo Minh Hieu** [Hieu Vo](https://www.linkedin.com/in/hieu-vo-897a12158/)
 
 
 
