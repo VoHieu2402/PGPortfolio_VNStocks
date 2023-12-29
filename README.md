@@ -81,7 +81,7 @@ Constrained by computing resources, I conducted a training session with only 20 
 
 - <b>Outdated Deep Learning Models:</b> The project architecture draws inspiration from Jiang et al. in 2017, employing a 1D CNN. Given the evolving landscape since 2017, exploring state-of-the-art deep learning approaches such as LSTM or Transformer is recommended for enhanced capabilities in capturing temporal dynamics.
 
-- <b>Limited Applicability to the real world:</b> The Vietnamese stock trading system enforces a T+2 settlement cycle, meaning the transfer of securities and funds occurs two business days after the trade date. Any real-world application for the Vietnam stock market should integrate algorithms to effectively handle this settlement cycle requirement.
+- <b>Limited Applicability to The Real World:</b> The Vietnamese stock trading system enforces a T+2 settlement cycle, meaning the transfer of securities and funds occurs two business days after the trade date. Any real-world application for the Vietnam stock market should integrate algorithms to effectively handle this settlement cycle requirement.
 
 ## Disclaimer
 
