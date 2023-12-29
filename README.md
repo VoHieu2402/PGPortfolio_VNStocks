@@ -67,10 +67,10 @@ Instead of utilizing a constant learning rate, I utilize learning rate schedules
 ### Performance
 Constrained by computing resources, I conducted a training session with only 20 episodes for the agent. Despite the agent exhibiting a notable ability to surpass the VN Index in terms of returns, the diversification of risk did not meet expectations. Visualization indicates a considerable level of volatility in both training and testing datasets. In the testing dataset, the agent's performance lags behind the benchmark, potentially attributed to the market being in a bearish phase and the agent not adequately mitigating systematic risk.
 
-![allocation_track_training](./print/allocation_track_training.png)
-![balance_track_training](./print/balance_track_training.png)
-![allocation_track_testing](./print/allocation_track_testing.png)
-![balance_track_testing](./print/balance_track_testing.png)
+![allocation_track_training](./img/allocation_track_training.png)
+![balance_track_training](./img/balance_track_training.png)
+![allocation_track_testing](./img/allocation_track_testing.png)
+![balance_track_testing](./img/balance_track_testing.png)
 
 
 ### Limitations and proposed improvements
