@@ -9,7 +9,7 @@ state_tensor_pf_vnstocks_test = torch.load("data/torch_tensor_vnstocks/state_ten
 state_tensor_VNI_test = torch.load("data/torch_tensor_vnstocks/state_tensor_VNI_test.pt")
 
 # Load the object from the file using pickle
-with open("my_agent.pkl", "rb") as file:
+with open("my_agent1.pkl", "rb") as file:
     agent = pickle.load(file)
     
 agent.actor_network.train(False)
@@ -103,14 +103,14 @@ for i in range(len(lst_actions)):
   else:
     plt.plot(lst_actions[i][s:e], label="Cash")
 plt.legend()
-plt.title("The allocation by my agent")
+plt.title("The allocation by my agent for testing dataset")
 plt.show()
 
 # Visualization of the agent performance relative to the benchmark
 bm = "VNI"
 plt.plot(lst_balance_pf, label="My Agent")
 plt.plot(lst_balance_bm, label=bm)
-plt.title(f"Giá trị khoản đầu tư giữa My Bot and {bm}")
+plt.title(f"Balance track of My Agent and {bm} for testing dataset")
 plt.legend()
 plt.show()
 

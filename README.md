@@ -46,7 +46,7 @@ $ python test.py
     - <b>replay_buffer.py</b>: The database used to stores experiences in the form of tuples <i>(state_portfolio, action, reward, next_state_portfolio, state_benchmark, next_state_benchmark, prev_action, prev_pf, prev_bm, pre_each_asset)</i>, representing the agent's interactions with the environment at different time steps.
     - <b>policy.py</b>: The policy that select actions using actor network.
     - <b>agent.py</b>: An agent that interacts with an environment with the goal of learning optimal actions to maximize cumulative rewards over time. It is responsible for making decisions, taking actions, and learning from the consequences of those actions.
-- <b>train.py</b> During the training process, the agent undergoes 1000 episodes, each involving the management of a portfolio comprising 14 distinct stocks and cash to maximize the final risk-adjusted return. In each episode, there are 60 time steps, equivalent to a period of 2 months.
+- <b>train.py</b> During the training process, the agent undergoes many episodes, each involving the management of a portfolio comprising 14 distinct stocks and cash to maximize the final risk-adjusted return. In each episode, the agent has traded over the whole period of the training dataset.
 - <b>test.py</b> The tested agent evaluates the portfolio management strategy over a period comprising 112 time steps. Additionally, visualizations are generated in this file.
 
 
@@ -54,7 +54,7 @@ $ python test.py
 
 ### Reward function
 
-While the original framework calculates the reward as the explicit average of periodic logarithmic returns, my project defines the reward function as the disparity between the agent's risk-adjusted return and that of the benchmark. This addition of a risk element aims to enhance the stability of the portfolio management strategy, preventing excessive allocation to specific assets.
+While the original framework calculates the reward as the explicit average of periodic logarithmic returns, my project defines the reward function that combines the original reward with a weighted factor representing the difference between the agent's risk-adjusted return and that of the benchmark. This addition of a risk element aims to enhance the stability of the portfolio management strategy, preventing excessive allocation to specific assets.
 
 Moreover, employing risk-adjusted returns allows us to track the value of the portfolio over time. Integrating the portfolio value into the model enhances the agent's awareness of its position, facilitating more informed decision-making.
 
@@ -64,38 +64,20 @@ Instead of utilizing a constant learning rate, I utilize learning rate schedules
 
 ## Performance and some discussion
 
-The policy function is designed through a deep neural network which takes as input the input tensor (shape m x 50 x (3 or 4)) composed of :
-- the m traded stocks 
-- the 3/4 matrix columns (processed OHLC)
-- 5O previous time steps
+### Performance
+Constrained by computing resources, I conducted a training session with only 20 episodes for the agent. Despite the agent exhibiting a notable ability to surpass the VN Index in terms of returns, the diversification of risk did not meet expectations. Visualization indicates a considerable level of volatility in both training and testing datasets. In the testing dataset, the agent's performance lags behind the benchmark, potentially attributed to the market being in a bearish phase and the agent not adequately mitigating systematic risk.
 
-A first convolution is realized resulting in a smaller tensor. Then, a second convolution is made resulting in 20 vector of shape (m x 1 x 1). The previous output vector is stacked. 
-The last layer is a terminate convolution resulting in a unique m vector. 
-Then, a cash bias is added and a softmax applied. 
-
-The output of the neural network is the vector of the actions the agent will take. 
-
-Then, the environment can compute the new vector of weights, the new portfolio and instant reward.
-
-![DLArchiteture](./print/DLArchiteture.png)
-
-## Training and Testing of the agent
-
-This part is still in progress as of today. Our thought is we are still not able to reproduce the paper's results. 
-Indeed, even if the algorithm demonstrated the capacity to identify high-potential stocks which maximizes results. However, it has a little potential to change the position through the trading process. 
-
-![results](./print/results.png)
+![allocation_track_training](./print/allocation_track_training.png)
+![balance_track_training](./print/balance_track_training.png)
+![allocation_track_testing](./print/allocation_track_testing.png)
+![balance_track_testing](./print/balance_track_testing.png)
 
 
-## Understanding the problem & possible improvement
+### Challenges and next plan
 
-We tried many initial parameters such as low trading cost to produce incentive to change of position. 
+## Disclaimer
 
-The agent is 'training sensitive' but it is not 'input state sensitive'. 
-
-In order to make the policy more dynamic, we think of using a discrete action space using pre-defined return thresholds. We'll turn the problem replacing the softmax by a tanh or by turning it into a classification task. 
-
-![results2](./print/result2.png)
+This project is intended for educational purposes only. It does not provide financial advice, and there is no warranty for any potential losses incurred through real-world applications. Users are urged to exercise caution and seek professional advice for their specific financial decisions.
 
 ## Author
 

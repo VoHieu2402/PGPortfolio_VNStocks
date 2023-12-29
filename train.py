@@ -8,12 +8,12 @@ state_tensor_pf_vnstocks_train = torch.load("data/torch_tensor_vnstocks/state_te
 state_tensor_VNI_train = torch.load("data/torch_tensor_vnstocks/state_tensor_VNI_train.pt")
 
 agent = Agent(
-    batch_size=7,
-    lr_actor=0.001,
+    batch_size=30,
+    lr_actor=0.00001,
     num_stocks=14,
     lags_for_loss=14,
-    trans_cost=0,
-    rb_capacity=30 # Must be greater than batch_size + lags_for_loss
+    trans_cost=0.001,
+    rb_capacity=100 # Must be greater than batch_size + lags_for_loss
 )
 lst_avg_action = []
 lst_total_reward = []
@@ -23,11 +23,13 @@ best_model = None
 num_win = 0
 num_loss = 0
 
-for episode in range(1000):
-  idx_episode = random.randint(0,len(state_tensor_pf_vnstocks_train)-60)
+for episode in range(20):
+  # idx_episode = random.randint(0,len(state_tensor_pf_vnstocks_train)-60)
   lst_actions = []
-  state_tensor_pf = state_tensor_pf_vnstocks_train[idx_episode:idx_episode+61]
-  state_tensor_bm = state_tensor_VNI_train[idx_episode:idx_episode+61]
+  # state_tensor_pf = state_tensor_pf_vnstocks_train[idx_episode:idx_episode+61]
+  # state_tensor_bm = state_tensor_VNI_train[idx_episode:idx_episode+61]
+  state_tensor_pf = state_tensor_pf_vnstocks_train
+  state_tensor_bm = state_tensor_VNI_train
   total_reward = 1
   done = 0
   update_lr = False
@@ -92,8 +94,8 @@ for episode in range(1000):
     prev_w = action_stocks.clone().detach().requires_grad_(False)
 
   # lst_avg_action.append(lst_actions)
-  if loss.item() <= max_reward:
-    max_reward = loss.item()
+  if balance.item() >= max_reward:
+    max_reward = balance.item()
     best_model = agent.actor_network.state_dict()
 
   risk_adj_portfolio = (np.mean(lst_portfolio_returns) / np.abs(np.std(lst_portfolio_returns)))
@@ -111,6 +113,8 @@ for episode in range(1000):
 # After training, load the best model
 agent.actor_network.load_state_dict(best_model)
 
+print(max_reward)
+
 # Save the agent to a file using pickle
-with open("my_agent.pkl", "wb") as file:
+with open("my_agent1.pkl", "wb") as file:
     pickle.dump(agent, file)

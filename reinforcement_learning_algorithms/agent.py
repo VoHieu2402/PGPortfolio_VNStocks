@@ -111,6 +111,7 @@ class Agent(nn.Module):
     state_benchmark = state_benchmark[self.lags_for_loss:].clone().detach().requires_grad_(False)
     next_state_benchmark = next_state_benchmark[self.lags_for_loss:].clone().detach().requires_grad_(False)
     pre_each_asset = pre_each_asset[self.lags_for_loss:].clone().detach().requires_grad_(False)
+    
 
     # Calculate the historical ret for portfolio
     prev_pf_ = prev_pf[self.lags_for_loss:].clone().detach().requires_grad_(False)
@@ -147,8 +148,8 @@ class Agent(nn.Module):
     # Calculate the reward of the action - Daily return
     ret = 1 / next_state_portfolio[:,0,:,-2].unsqueeze(2)
     tot_ret = ret * post_each_asset[:,:self.num_stocks].unsqueeze(-1)
-    new_pf = torch.sum(tot_ret.squeeze(-1),-1) + post_each_asset[:,-1].unsqueeze(-1)
-    ret_pf = (new_pf - new_prev_pf_) / new_prev_pf_
+    new_pf = torch.sum(tot_ret.squeeze(-1),-1).unsqueeze(-1) + post_each_asset[:,-1].unsqueeze(-1)
+    ret_pf = (new_pf - new_prev_pf_.unsqueeze(-1)) / new_prev_pf_.unsqueeze(-1)
     ret_bench = 1 / next_state_benchmark[:,0,:,-2] - 1    # Calculate the daily return of the benchmark
 
     # Calculate historical mean and std with the addition of new reward (used for Sharpe ratio calculation)
@@ -159,10 +160,11 @@ class Agent(nn.Module):
     complete_ret_bm = torch.cat((prev_bm_for_loss, ret_bench), 1)
     mean_ret_bm = torch.mean(complete_ret_bm, 1)
     std_ret_bm  = torch.abs(torch.std(complete_ret_bm, 1))
-    
+
     # Calculate the loss
-    diff_ret = (mean_ret_pf / std_ret_pf) - 2*(mean_ret_bm / std_ret_bm)
-    actor_loss = -torch.mean(diff_ret)
+    diff_sharpe = torch.mean((mean_ret_pf / std_ret_pf) - (mean_ret_bm / std_ret_bm))
+    diff_ret = torch.log(torch.prod((ret_pf+1).squeeze(-1))) - torch.log(torch.prod((ret_bench+1).squeeze(-1)))
+    actor_loss = -(0.3*diff_ret+0.7*diff_sharpe)
 
     # Print the actor loss if needed
     if print_result:
