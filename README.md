@@ -1,4 +1,4 @@
-# EXPLORING THE POTENTIAL OF POLICY GRADIENT PORTFOLIO: A DEEP REINFORCEMENT LEARNING FRAMEWORK FOR PORTFOLIO MANAGEMENT IN THE VIETNAMESE STOCK MARKET
+# Exploring the potential of Policy Gradient Portfolio: A Deep RL framework for Portfolio Management in Vietnam stock market
 
 This project draws inspiration from the deep reinforcement learning framework for portfolio management proposed by [Jiang et al. in 2017](https://arxiv.org/abs/1706.10059). I conduct further investigation into the original architecture introduced by Jiang et al, tailoring it for implementation in the Vietnamese stock market. The portfolio encompasses 14 distinct stocks, detailed in below table. The objective is to formulate a reward function that maximizes the risk-adjusted return of the portfolio relative to the benchmark (VNI - VN Index)
 
