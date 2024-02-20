@@ -71,7 +71,7 @@ Instead of utilizing a constant learning rate, I utilize learning rate schedules
 ## Performance and some discussion
 
 ### Performance
-Constrained by computing resources, I conducted a training session with only 20 episodes for the agent. Despite the agent exhibiting a notable ability to surpass the VN Index in terms of returns, the diversification of risk did not meet expectations. Visualization indicates a considerable level of volatility in both training and testing datasets. In the testing dataset, the agent's performance lags behind the benchmark, potentially attributed to the market being in a bearish phase and the agent not adequately mitigating systematic risk.
+The experimental outcomes revealed that PGPortfolio not only surpassed the market but also outperformed comparable benchmarks. Throughout the entirety of 2023, where the market index witnessed a modest 5% growth and other ETF fund indices achieved growth ranging from 5% to 20%, PGPortfolio achieved a remarkable return rate of 31% when ignoring transaction costs. Accounting for transaction costs did impact its performance, yet it continued to demonstrate effectiveness compared to alternative benchmarks. Notably, PGPortfolio achieved these impressive returns with significantly lower associated risks compared to the market and benchmarks. During the bearish trend in the latter half of 2023, PGPortfolio stood as the only portfolio exhibiting positive growth, while others observed declines in their portfolio values. This suggests a superior risk consideration, as evidenced by its smaller maximum drawdown. Furthermore, its Sharpe ratio, Sortino ratio, and Information ratio provide additional evidence of the effective trading strategies employed by PGPortfolio.
 
 <!-- ![allocation_track_training](./img/allocation_track_training.png)
 ![balance_track_training](./img/balance_track_training.png)
@@ -87,8 +87,6 @@ Constrained by computing resources, I conducted a training session with only 20 
 - <b>Simplistic Market State Representation:</b> This project utilizes historical Close-High-Low (CHL) data for each stock to represent the market state, without considering relationships between stocks. Real markets are more intricate, necessitating the inclusion of additional features such as news, social sentiment, timing, economic and financial health of companies, etc. Moreover, an ideal representation should capture spatial and temporal relationships between stocks, where Graph Neural Networks (GNN) can be a suitable choice for market embedding.
 
 - <b>Outdated Deep Learning Models:</b> The project architecture draws inspiration from Jiang et al. in 2017, employing a 1D CNN. Given the evolving landscape since 2017, exploring state-of-the-art deep learning approaches such as LSTM or Transformer is recommended for enhanced capabilities in capturing temporal dynamics.
-
-- <b>Limited Applicability to The Real World:</b> The Vietnamese stock trading system enforces a T+2 settlement cycle, meaning the transfer of securities and funds occurs two business days after the trade date. Any real-world application for the Vietnam stock market should integrate algorithms to effectively handle this settlement cycle requirement.
 
 ## Disclaimer
 
