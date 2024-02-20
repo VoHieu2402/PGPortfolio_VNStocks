@@ -73,6 +73,38 @@ Instead of utilizing a constant learning rate, I utilize learning rate schedules
 ### Performance
 The experimental outcomes revealed that PGPortfolio not only surpassed the market but also outperformed comparable benchmarks. Throughout the entirety of 2023, where the market index witnessed a modest 5% growth and other ETF fund indices achieved growth ranging from 5% to 20%, PGPortfolio achieved a remarkable return rate of 31% when ignoring transaction costs. Accounting for transaction costs did impact its performance, yet it continued to demonstrate effectiveness compared to alternative benchmarks. Notably, PGPortfolio achieved these impressive returns with significantly lower associated risks compared to the market and benchmarks. During the bearish trend in the latter half of 2023, PGPortfolio stood as the only portfolio exhibiting positive growth, while others observed declines in their portfolio values. This suggests a superior risk consideration, as evidenced by its smaller maximum drawdown. Furthermore, its Sharpe ratio, Sortino ratio, and Information ratio provide additional evidence of the effective trading strategies employed by PGPortfolio.
 
+<b>Table 1 - The results of the experiment for the second half of the year 2023</b>
+|  | Name | ShR | SoR | MDD | InR | CumVal
+| --- | --- | --- | --- | --- | --- | ---
+| 1 | VNINDEX | -0.0378 | -0.0548 | -0.1745 | | 0.9407
+| 2 | FUESSV50 | -0.0115 | -0.0179 | -0.2142 | 0.0114 | 0.9534
+| 3 | FUESSV30 | -0.0347 | -0.0506 | -0.1612 | 0.0006 | 0.9401
+| 4 | FUEMAV30 | -0.0293 | -0.0423 | -0.1739 | 0.0221 | 0.9496
+| 5 | FUEVFVND | 0.0035 | 0.0056 | -0.1674 | <b>0.0570**</b> | 0.9936
+| 6 | FUEVN100 | -0.0071 | -0.0104 | -0.1583 | <b>0.0564*</b> | 0.9833
+| 7 | PGPortfolio - 0.00% | <b>0.0476***</b> | <b>0.0937***</b> | <b>-0.0981***</b> | <b>0.0607***</b> | <b>1.0766***</b>
+| 8 | PGPortfolio - 0.10% | <b>0.0287**</b> | <b>0.0560**</b> | <b>-0.1065**</b> | 0.0455 | <b>1.0390**</b>
+| 9 | PGPortfolio - 0.15% | <b>0.0192*</b> | <b>0.0372*</b> | <b>-0.1108*</b> | 0.0379 | <b>1.0207*</b>
+| 10 | PGPortfolio - 0.20% | 0.0096 | 0.0187 | -0.1150 | 0.0303 | 1.0026
+| 11 | PGPortfolio - 0.25% | 0.0001 | 0.0002 | -0.1191 | 0.0226 | 0.9850
+
+<b>Table 2 - The results of the experiment for the full year 2023</b>
+|  | Name | ShR | SoR | MDD | InR | CumVal
+| --- | --- | --- | --- | --- | --- | ---
+| 1 | VNINDEX | 0.0246 | 0.0363 | -0.1745 | | 1.0502
+| 2 | FUESSV50 | 0.0457 | 0.0785 | -0.2142 | <b>0.0335*</b> | <b>1.2048*</b>
+| 3 | FUESSV30 | 0.0245 | 0.0362 | -0.1612 | 0.0082 | 1.0621
+| 4 | FUEMAV30 | 0.0243 | 0.0369 | -0.1739 | 0.0050 | 1.0527
+| 5 | FUEVFVND | 0.0340 | 0.0541 | -0.1674 | 0.0195 | 1.0863
+| 6 | FUEVN100 | 0.0408 | 0.0628 | -0.1583 | 0.0272 | 1.1016
+| 7 | PGPortfolio - 0.00% | <b>0.0860***</b> | <b>0.1620***</b> | <b>-0.0981***</b> | <b>0.0544*** </b> | <b>1.3168***</b>
+| 8 | PGPortfolio - 0.10% | <b>0.0685**</b> | <b>0.1275**</b> | <b>-0.1065**</b> | <b>0.0402**</b> | <b>1.2375**</b>
+| 9 | PGPortfolio - 0.15% | <b>0.0596*</b> | <b>0.1105*</b> | <b>-0.1108*</b>| 0.0331 | 1.1996
+| 10 | PGPortfolio - 0.20% | 0.0507 | 0.0935 | -0.1150 | 0.0260 | 1.1628
+| 11 | PGPortfolio - 0.25% | 0.0417 | 0.0766 | -0.1191 | 0.0188 | 1.1271
+
+Note: ( *** ): 1st highest; ( ** ): 2nd highest; ( * ): 3nd highest
+
 <!-- ![allocation_track_training](./img/allocation_track_training.png)
 ![balance_track_training](./img/balance_track_training.png)
 ![allocation_track_testing](./img/allocation_track_testing.png)
