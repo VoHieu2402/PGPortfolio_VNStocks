@@ -5,8 +5,8 @@ import pickle
 from matplotlib import pyplot as plt
 
 # You can use the state_tensor_test or reuse the whole state_tensor_train for testing
-state_tensor_pf_vnstocks_test = torch.load("data/torch_tensor_vnstocks/state_tensor_pf_vnstocks_test.pt")
-state_tensor_VNI_test = torch.load("data/torch_tensor_vnstocks/state_tensor_VNI_test.pt")
+state_tensor_pf_vnstocks_test = torch.load("data/torch_tensor_vnstocks/state_tensor_pf_vnstocks_test_fullyear.pt")
+state_tensor_VNI_test = torch.load("data/torch_tensor_vnstocks/state_tensor_VNI_test_fullyear.pt")
 
 # Load the object from the file using pickle
 with open("my_agent1.pkl", "rb") as file:
@@ -22,6 +22,7 @@ lst_balance_bm = []
 total_reward = 1
 done = 0
 prev_w = torch.zeros(1, state_tensor_pf.shape[2], 1, requires_grad=False, dtype=torch.float32)
+trans_cost = 0.0015
 balance = 10000
 pre_each_asset = torch.zeros(1, state_tensor_pf.shape[2]+1, requires_grad=False, dtype=torch.float32)
 pre_each_asset[:,-1] = balance
@@ -38,26 +39,39 @@ with torch.no_grad():
     next_state_pf = state_tensor_pf[i+1].unsqueeze(0)
     next_state_bm = state_tensor_bm[i+1].unsqueeze(0)
     
-    # Calculate actions
-    action_stocks, action_pf = agent.policy.select_action(state_pf, prev_w)
+    if i%agent.rebalance_period==0:
+      # Calculate actions
+      action_stocks, action_pf = agent.policy.select_action(state_pf, prev_w)
 
-    # Re-calculate portfolio after new allocation
-    post_each_asset = action_pf.squeeze(2) * prev_pf
-    transaction_amount = post_each_asset - pre_each_asset
-    
-    transaction_cost_for_each = torch.abs(transaction_amount) * 0.0025
-    post_each_asset[:,-1] -= torch.sum(transaction_cost_for_each, 1) - transaction_cost_for_each[:,-1]
-    prev_pf_after_transaction = torch.sum(post_each_asset, 1)
-    prev_cash = post_each_asset[:,-1].unsqueeze(0)
-    prev_stocks = prev_pf_after_transaction - prev_cash
-    action_stocks = (post_each_asset / prev_pf_after_transaction)[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
+      # Re-calculate portfolio after new allocation
+      post_each_asset = action_pf.squeeze(2) * prev_pf
+      transaction_amount = post_each_asset - pre_each_asset
+      transaction_cost_for_each = torch.abs(transaction_amount) * trans_cost
+      post_each_asset[:,-1] -= torch.sum(transaction_cost_for_each, 1) - transaction_cost_for_each[:,-1]
+      prev_pf_after_transaction = torch.sum(post_each_asset, 1)
+      prev_cash = post_each_asset[:,-1].unsqueeze(0)
+      prev_stocks = prev_pf_after_transaction - prev_cash
+      action_stocks = (post_each_asset / prev_pf_after_transaction)[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
+      action_pf = (post_each_asset / prev_pf_after_transaction).unsqueeze(-1)
 
-    # Calculate the reward of the action - Daily return
-    ret = 1 / next_state_pf[:,0,:,-2].unsqueeze(2)
-    tot_ret = ret * post_each_asset[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
-    new_pf = torch.sum(tot_ret.squeeze(-1),-1) + post_each_asset[:,-1].unsqueeze(-1)
-    ret_pf = (new_pf - prev_pf_after_transaction) / prev_pf_after_transaction
-    ret_bench = 1/next_state_bm[:,0,:,-2]
+      # Calculate the reward of the action - Daily return
+      ret = 1 / next_state_pf[:,0,:,-2].unsqueeze(2)
+      tot_ret = ret * post_each_asset[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
+      new_pf = torch.sum(tot_ret.squeeze(-1),-1) + post_each_asset[:,-1].unsqueeze(-1)
+      ret_pf = (new_pf - prev_pf_after_transaction) / prev_pf_after_transaction
+      ret_bench = 1/next_state_bm[:,0,:,-2]
+      post_each_asset[:,:-1] = tot_ret.squeeze(-1)
+    else:
+      action_stocks = (pre_each_asset / prev_pf)[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
+      action_pf = (pre_each_asset / prev_pf).unsqueeze(-1)
+      
+      # Calculate the reward of the action - Daily return
+      ret = 1 / next_state_pf[:,0,:,-2].unsqueeze(2)
+      tot_ret = ret * pre_each_asset[:,:state_tensor_pf.shape[2]].unsqueeze(-1)
+      new_pf = torch.sum(tot_ret.squeeze(-1),-1) + pre_each_asset[:,-1].unsqueeze(-1)
+      ret_pf = (new_pf - prev_pf) / prev_pf
+      ret_bench = 1/next_state_bm[:,0,:,-2]
+      post_each_asset[:,:-1] = tot_ret.squeeze(-1)
 
     # Calculate the reward
     new_bm = prev_bm * ret_bench
@@ -75,6 +89,7 @@ with torch.no_grad():
     prev_w = action_stocks
     lst_balance_pf.append(balance.item())
     lst_balance_bm.append(new_bm.item())
+    print(f"Transaction cost: {torch.sum(transaction_cost_for_each, 1) - transaction_cost_for_each[:,-1]}")
     print(f"Time step {i + 1}, Reward: {reward.item()}, Total Balance: {balance.item()}, Benchmark: {new_bm.item()}")
     print("------------------------------------------------------")
 
@@ -102,8 +117,10 @@ for i in range(len(lst_actions)):
     plt.plot(lst_actions[i][s:e], label=chosen_symbols[i])
   else:
     plt.plot(lst_actions[i][s:e], label="Cash")
-plt.legend()
-plt.title("The allocation by my agent for testing dataset")
+plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+plt.title("The allocation track by PGPortfolio for the second half of 2023")
+plt.xlabel("Time steps")
+plt.ylabel("Portfolio weights")
 plt.show()
 
 # Visualization of the agent performance relative to the benchmark
@@ -117,33 +134,5 @@ plt.show()
 df_performance = pd.DataFrame()
 df_performance["MyAgent"] = pd.Series([10000] + lst_balance_pf)
 df_performance[bm] = pd.Series([10000] + lst_balance_bm)
-for i in range(len(lst_actions)):
-  if i!=len(lst_actions)-1:
-    df_performance[f"Weights of {chosen_symbols[i]}"] = pd.Series([0] + lst_actions[i])
-  else:
-    df_performance["Weights of Cash"] = pd.Series([1] + lst_actions[i])
-
-df_performance["MyAgentReturn"] = df_performance["MyAgent"].pct_change()
-df_performance[f"{bm}Return"] = df_performance[bm].pct_change()
-
-df_performance = df_performance.dropna()
-meanAgent = df_performance["MyAgentReturn"].mean()
-stdAgent = df_performance["MyAgentReturn"].std()
-
-meanVNI = df_performance[f"{bm}Return"].mean()
-stdVNI = df_performance[f"{bm}Return"].std()
-
-
-print("Mean Agent: ", meanAgent)
-print("Std Agent: ", np.abs(stdAgent))
-print("")
-print(f"Mean {bm}: ", meanVNI)
-print(f"Std {bm}: ", np.abs(stdVNI))
-print("")
-
-print("Risk-adjusted Return of Agent: ", meanAgent /np.abs(stdAgent))
-print(f"Risk-adjusted Return of {bm}: ", meanVNI / np.abs(stdVNI))
-print("Sharpe Ratio of My Agent: ", (meanAgent - meanVNI) / np.abs(stdAgent))
-print("")
-
+df_performance.to_csv("utils/df_performance.csv")
 
