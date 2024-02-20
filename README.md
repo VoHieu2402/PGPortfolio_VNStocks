@@ -1,4 +1,4 @@
-# A DRL Framework for Portfolio Management: Application for Vietnamese stocks
+# EXPLORING THE POTENTIAL OF POLICY GRADIENT PORTFOLIO: A DEEP REINFORCEMENT LEARNING FRAMEWORK FOR PORTFOLIO MANAGEMENT IN THE VIETNAMESE STOCK MARKET
 
 This project draws inspiration from the deep reinforcement learning framework for portfolio management proposed by [Jiang et al. in 2017](https://arxiv.org/abs/1706.10059). I conduct further investigation into the original architecture introduced by Jiang et al, tailoring it for implementation in the Vietnamese stock market. The portfolio encompasses 14 distinct stocks, detailed in below table. The objective is to formulate a reward function that maximizes the risk-adjusted return of the portfolio relative to the benchmark (VNI - VN Index)
 
@@ -22,7 +22,7 @@ This project draws inspiration from the deep reinforcement learning framework fo
 
 ## Usage Guideline
 
-To begin, ensure the installation of the necessary packages outlined in the <i>requirements.txt</i> file. The focal point of my repository revolves around the training and testing processes. The training process is executed through the <i>train.py</i> file. If required, you have the flexibility to modify hyperparameters for the agent and training process; however, it is imperative to have a clear understanding of each parameter. No validation function is implemented to assess the suitability of hyperparameters, so errors may arise if the provided parameters are inappropriate. Subsequent to the training phase, the trained agent is saved as a pickle file. The <i>test.py</i> file is designed to load this pickle file for testing purposes, accompanied by visualizations of the performance.
+To begin, ensure the installation of the necessary packages outlined in the <i>requirements.txt</i> file. The focal point of my repository revolves around the training and testing processes. The training process is executed through the <i>train.py</i> file. If required, you have the flexibility to modify hyperparameters for the agent and training process; however, it is imperative to have a clear understanding of each parameter. No validation function is implemented to assess the suitability of hyperparameters, so errors may arise if the provided parameters are inappropriate. Subsequent to the training phase, the trained agent is saved as a pickle file. The <i>test.py</i> file is designed to load this pickle file for testing purposes, accompanied by visualizations of the performance. Finally, the performance of the virtual agent is evaluated against relative benchmarks in the file <i>relative_performance_eval</i>
 
 ### Quick Start
 Start with following commands:
@@ -31,6 +31,7 @@ $ git clone https://github.com/VoHieu2402/PGPortfolio_VNStocks
 $ cd PGPortfolio_VNStocks
 $ python train.py
 $ python test.py
+$ python utils/relative_performance_eval.py
 ```
 
 ### File Structure
